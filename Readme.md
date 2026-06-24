@@ -19,7 +19,7 @@ Open any of these files in a modern browser (no build step required):
 
 - `sige-uc-app.html` — main mobile dashboard prototype
 - `src/React.js` — React-style component (ES module) mirroring the prototype flow
-- `src/pages/` — additional standalone demo pages
+- `src/pages/` — additional  demo pages
 - `assets/images/` — image assets used in the UI
 
 ## Notes
