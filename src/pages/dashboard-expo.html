@@ -132,6 +132,10 @@
         .t-card{ padding: 16px; height: 150px; width: 100px; background-color: #f4f7fc;; align-items: center; border-radius: 16px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
         .events{display: flex; flex-direction: column; row-gap: 10px;}
         .v-events{display: flex; flex-direction: row; font-size:13px; gap:15px;background-color: #f4f7fc; height: 80px; border-radius:10px; }
+
+        /* Contenus du stand Screen */
+
+        .pdf{display: flex; flex-direction:row; column-gap: 10px; background-color: #f4f7fc;justify-content: center; align-items: center; width: 300px; height:80px; border-radius: 16px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); margin-left: 15px;}
     </style>
 </head>
 <body>
@@ -183,7 +187,7 @@
                 <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
             </div>
 
-            <div class="menu-item">
+            <div class="menu-item" onclick="nav('screen-contenus')">
                 <div class="icon-wrapper" style="background: #10b981;"><i class="fa-solid fa-file-image"></i></div>
                 <div class="menu-text"><h3>Contenus du stand</h3><p>Brochure, vidéos, documents</p></div>
                 <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
@@ -397,6 +401,83 @@
             </div>
             <button style="background-color: #5a94d6; color:white; width:300px; height: 40px;border-radius:20px; border:none; margin-top: 15px;">+ Creer un evenement</button>
         </div>
+    </div>
+
+    <div id="screen-contenus" class="screen">
+         <div class="header">
+            <button class="back-btn" onclick="nav('screen-dashboard')"><i class="fa-solid fa-arrow-left"></i></button>
+            <span class="header-title">Évènements & Salons</span>
+            <i class="fa-solid fa-plus" style="color: var(--secondary);"></i>
+        </div>
+        <div style="margin:9px">
+        
+         <div style="padding: 2px 21px;  display: flex;  gap:10px; ">
+            <span style=" color: var(--secondary); padding: 4px 8px;  font-size: 11px;">Tout</span>
+            <span style="  color: var(--text-dark); padding: 4px 8px;  font-size: 11px;">Dovuments</span>
+            <span style="  color: var(--text-dark); padding: 4px 8px;  20px; font-size: 11px;">Videos</span>
+            <span style=" color: var(--text-dark); padding: 4px 20px;  20px; font-size: 11px;">Images</span>
+        </div><br>
+        <div class="pdf">
+            <img src="/src/assets/images/material-icon-theme_pdf.png" style="height:40px">
+            <div style="font-size: 12px;" align="left"><p >Optimiser Votre stand<br><span style="color:#676768">     Ajouter du contenus pour attire<br> d'autres etudiants </span></p></div>
+            <i class="fa-solid fa-arrow-right"></i>
+        </div>
+        <div style="display:flex; justify-content: space-around; font-size: 13px; margin-top:20px; margin-bottom:20px;">
+            <p style="">Documents</p>
+            <p style="color: var(--secondary);">Voir tout</p>
+        </div>
+        <div style="display: flex; flex-direction:row; gap:10px; margin-left: 18px;">
+            <div style="max-width:150px">
+                <img src="/src/assets/images/Frame 75.png" style="height:150px;">
+                <h6>Guide de Formation</h><br>
+                <p6 style="color:#676768">PDF -1.4Mb</p>
+            </div>
+            <div style="max-width:150px">
+                <img src="/src/assets/images/Frame 75.png" style="height:150px;">
+                <h6>Guide de Formation</h><br>
+                <p6 style="color:#676768">PDF -1.4Mb</p>
+            </div>
+            <div style="max-width:150px">
+                <img src="/src/assets/images/Frame 75.png" style="height:150px;">
+                <h6>Guide de Formation</h><br>
+                <p6 style="color:#676768">PDF -1.4Mb</p>
+            </div>
+        </div>
+         <div style="display:flex; justify-content: space-around; font-size: 13px; margin-top:20px; margin-bottom:20px;">
+            <p style="">Videos</p>
+            <p style="color: var(--secondary);">Voir tout</p>
+        </div> 
+        
+        <div style="display: flex; flex-direction:row; gap:10px; margin-left: 18px;">
+            <div style="max-width:150px">
+                <img src="/src/assets/images/" style="height:150px;">
+                <h6>Presentation de <br>l'universite</h><br>
+                
+            </div>
+        </div>
+        <div style="display:flex; justify-content: space-around; font-size: 13px; margin-top:20px; margin-bottom:20px;">
+            <p style="">Images</p>
+            <p style="color: var(--secondary);">Voir tout</p>
+        </div>
+
+         <div style="display: flex; flex-direction:row; gap:10px; margin-left: 18px;">
+            <div style="max-width:150px">
+                <img src="/src/assets/images/Frame 77.png" style="width: 130px;">
+                <h4>Stands 1</h><br>
+                
+            </div>
+            <div style="max-width:150px">
+                <img src="/src/assets/images/Frame 77.png" style="width: 130px;">
+                <h4>Stands 1</h><br>
+                
+            </div>
+            <div style="max-width:150px">
+                <img src="/src/assets/images/Frame 77.png" style="width: 130px;">
+                <h4>Stands 1</h><br>
+                
+            </div>
+        </div>
+       </div>
     </div>
 
 </div>
