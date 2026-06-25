@@ -122,16 +122,16 @@
         .bar { width: 30px; background: var(--secondary); border-radius: 4px 4px 0 0; }
 
         /* Events Screen */
-        .event-card {
-            background: #fff; margin: 0 20px 16px; border-radius: 16px; overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
+        
         .event-img { width: 100%; height: 120px; background: #cbd5e1; object-fit: cover; }
-        .event-details { padding: 16px; }
+        .event-details { padding: 16px; z-index: 1;}
         .event-details h3 { font-size: 14px; margin-bottom: 4px; }
         .event-details p { font-size: 11px; color: var(--text-muted); margin-bottom: 12px; }
         .btn-blue { background: var(--secondary); color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; width: 100%; cursor: pointer; }
-
+        .cards{display:flex; flex-direction: row; gap: 10px;}
+        .t-card{ padding: 16px; height: 150px; width: 100px; background-color: #f4f7fc;; align-items: center; border-radius: 16px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .events{display: flex; flex-direction: column; row-gap: 10px;}
+        .v-events{display: flex; flex-direction: row; font-size:13px; gap:15px;background-color: #f4f7fc; height: 80px; border-radius:10px; }
     </style>
 </head>
 <body>
@@ -349,9 +349,53 @@
                 <div class="event-details">
                     <h3>SIGE-UC 1ère Édition</h3>
                     <p><i class="fa-regular fa-calendar"></i> 21 - 23 Juillet 2026<br><i class="fa-solid fa-location-dot"></i> Yaoundé, Hôtel Djeuga</p>
-                    <button class="btn-blue">Gérer le stand</button>
                 </div>
             </div>
+            <div class="cards">
+                <div class="t-card">
+                    <br><img src="/src/assets/images/fluent_people-16-filled.png">
+                    <h3>2896</h3>
+                    <p style="color:#676768">Viviteurs<br>inscrits</p>
+                </div>
+                <div class="t-card">
+                    <br><img src="/src/assets/images/lsicon_view-filled.png">
+                    <h3>2896</h3>
+                    <p style="color:#676768">Viviteurs<br>inscrits</p>
+                </div>
+                <div class="t-card">
+                   <br><img src="/src/assets/images/uil_calender.png">
+                    <h3>2896</h3>
+                    <p style="color:#676768">Viviteurs<br>inscrits</p>
+                </div>
+            </div>
+            <br><h5 style="color:#676768">Vos evenements a venir</h5><br>
+            <div class="events">
+                <div class="v-events">
+                   <img src="/src/assets/images/Rectangle 41.png" style="height: 72px; padding-top: 9px; padding-left:9px;">
+                    <div style="color:#676768;">
+                        <br><p>Journees Portes Ouvertes</p>
+                        <p><img src="/src/assets/images/uil_calender (1).png" style="height: 10px;"> 21-23 Juin 2026</p>
+                        <p><img src="/src/assets/images/basil_location-outline.png" style="height: 10px;"> Hotel Djeuga Palace</p>
+                        </div>
+                </div>
+                <div class="v-events">
+                   <img src="/src/assets/images/Rectangle 41.png" style="height: 72px; padding-top: 9px; padding-left:9px;">
+                    <div style="color:#676768;">
+                        <br><p>Journees Portes Ouvertes</p>
+                        <p><img src="/src/assets/images/uil_calender (1).png" style="height: 10px;"> 21-23 Juin 2026</p>
+                        <p><img src="/src/assets/images/basil_location-outline.png" style="height: 10px;"> Hotel Djeuga Palace</p>
+                        </div>
+                </div>
+                <div class="v-events">
+                   <img src="/src/assets/images/Rectangle 41.png" style="height: 72px; padding-top: 9px; padding-left:9px; ">
+                    <div style="color:#676768; ">
+                        <br><p>Journees Portes Ouvertes</p>
+                        <p><img src="/src/assets/images/uil_calender (1).png" style="height: 10px;"> 21-23 Juin 2026</p>
+                        <p><img src="/src/assets/images/basil_location-outline.png" style="height: 10px;"> Hotel Djeuga Palace</p>
+                        </div>
+                </div>
+            </div>
+            <button style="background-color: #5a94d6; color:white; width:300px; height: 40px;border-radius:20px; border:none; margin-top: 15px;">+ Creer un evenement</button>
         </div>
     </div>
 
