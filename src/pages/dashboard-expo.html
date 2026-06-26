@@ -399,7 +399,7 @@
                         </div>
                 </div>
             </div>
-            <button style="background-color: #5a94d6; color:white; width:300px; height: 40px;border-radius:20px; border:none; margin-top: 15px;">+ Creer un evenement</button>
+            <button onclick="nav('screen-evenement')" style="background-color: #5a94d6; color:white; width:300px; height: 40px;border-radius:20px; border:none; margin-top: 15px;">+ Creer un evenement</button>
         </div>
     </div>
 
@@ -463,7 +463,7 @@
          <div style="display: flex; flex-direction:row; gap:10px; margin-left: 18px;">
             <div style="max-width:150px">
                 <img src="/src/assets/images/Frame 77.png" style="width: 130px;">
-                <h4>Stands 1</h><br>
+                  <h4>Stands 1</h><br>
                 
             </div>
             <div style="max-width:150px">
@@ -478,6 +478,98 @@
             </div>
         </div>
        </div>
+    </div>
+
+    <div id="screen-evenement" class="screen">
+          <div class="header">
+            <button class="back-btn" onclick="nav('screen-events')"><i class="fa-solid fa-arrow-left"></i></button>
+            <span class="header-title">Creer un evenement</span>
+            <i class="fa-solid fa-plus" style="color: var(--secondary);"></i>
+        </div>
+         <div style="display:flex; justify-content: space-around; font-size: 13px; margin-top:20px; margin-bottom:20px;">
+            <p style="color: var(--secondary); background-color:  #f4f7fc; border-radius: 20px; padding: 10px">Informations</p>
+            <p style="color: ; padding: 10px">Contenus</p>
+        </div>
+        <div style="margin-left: 20px; margin-right: 30px;">
+        <p3>Titre de l'evenement</p3>
+        <input type="text" placeholder="Ex: Salon physique de la recherche..." style="width: 300px; height: 60px; border-radius: 20px; border: 1px solid #e2e8f0; padding-left: 10px; vertical-align: top;">
+        <p3>Type d'evenement</p3>
+        <div style="display:flex; flex-direction: row; gap:20px; justify-content: space-between; margin-top: 10px; width: 100px;">
+            <button style="background-color: #f4f7fc; color:#5a94d6; padding: 6px 20px 6px 20px; border: 1px solid#9a9a9b; ">Salon</button>
+            <button style="background-color: white; color:#999999; padding: 6px 8px 6px 8px; border: 1px solid#9a9a9b">Webinaire</button>
+            <button style="background-color: white; color:#999999; padding: 6px; border: 1px solid#9a9a9b">Conference</button>
+        </div>
+        <div style="margin-top: 15px; display:flex; flex-direction: row; gap:10px">
+            <button style="background-color: white; color:#999999; padding: 6px 15px 6px 15px; border: 1px solid#9a9a9b">Portes ouvertes</button>
+            <button style="background-color: white; color:#999999; padding: 6px 30px 6px 30px; border: 1px solid#9a9a9b">Autres</button>
+        </div>
+        <p3>Description</p3>
+         <input type="text" placeholder="Il s'agira de..." style="width: 300px; height: 150px; border-radius: 20px; border: 1px solid #e2e8f0; padding-left: 10px; ">
+         <p3>Image de couverture</p3>
+            <div style="width: 300px; height: 100px; background-color: #f4f7fc; border-radius: 20px; border: 1px solid #e2e8f0; align-items: center; justify-content: center; display: flex; flex-direction: column;">
+                <img src="/src/assets/images/Frame 204.png" style="width: 30px;">
+                <p style="color:#5a94d6;">Ajouter une image</p>
+                <p style="color:#676768; font-size: 12px;">PDF, JPEG, WEBP(max 5Mo)</p>
+
+            </div>
+        
+         <p3>Établissement organisateur</p3>
+             <button onclick="nav('screen-evenement2')" style="background-color: #5a94d6; color:white; width:300px; height: 40px;border-radius:20px; border:none; margin-top: 15px;">Suivant<i class="fa-solid fa-arrow-right"></i></button>
+      
+        </div>
+    </div>
+
+    <div id="screen-evenement2" class="screen">
+          <div class="header">
+            <button class="back-btn" onclick="nav('screen-events')"><i class="fa-solid fa-arrow-left"></i></button>
+            <span class="header-title">Creer un evenement</span>
+            <i class="fa-solid fa-plus" style="color: var(--secondary);"></i>
+        </div>
+         <div style="display:flex; justify-content: space-around; font-size: 13px; margin-top:20px; margin-bottom:20px;">
+           <p style=" padding: 10px">Information</p>
+            <p style="color: var(--secondary); background-color:  #f4f7fc; border-radius: 20px; padding: 10px">Contenus</p>
+        </div>
+        <div style="margin-left: 20px; margin-right: 30px;">
+            <h5>Date et Heure</h5>
+            <div style="display:flex; justify-content: space-between; font-size: 13px; margin-top:10px; margin-bottom:10px; margin-left: 0px;">
+           <p>Date de debut</p>
+            <p>Heure de debut</p>
+        </div>
+        <div style="display:flex; justify-content: space-between;">
+            <input type="date" placeholder=" "style="width: 130px; height: 30px;  border: 1px solid #e2e8f0; padding-left: 10px;" />
+            <input type="time" style="width: 130px; height: 30px;  border: 1px solid #e2e8f0; padding-left: 10px;">
+        </div>
+            <div style="display:flex; justify-content: space-between; font-size: 13px; margin-top:10px; margin-bottom:10px; margin-left: 0px;">
+           <p>Date de fin</p>
+            <p>Heure de fin</p>
+        </div>
+        <div style="display:flex; justify-content: space-between; margin-top: 10px;">
+            <input type="date" placeholder=" "style="width: 130px; height: 30px;  border: 1px solid #e2e8f0; padding-left: 10px;" />
+            <input type="time" style="width: 130px; height: 30px;  border: 1px solid #e2e8f0; padding-left: 10px;">
+        </div>
+        
+          <h5>A Propose de l'evenement</h5>  
+          <p style="font-size: 13px; margin-top: 10px; margin-bottom: 10px;">Public cible</p>
+          <input list="browsers" name="browser" placeholder="Selectionner votre public cible." style="width: 300px;  padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px;"> 
+          <datalist id="browsers">
+                <option value="Edge"></option>
+                <option value="Firefox"></option>
+                <option value="Chrome"></option>
+          </datalist> 
+           <p style="font-size: 13px; margin-top: 10px; margin-bottom: 10px;">Mots cles</p>
+                <input type="text" placeholder="Ex:Orientation-licence-Bourse" style="width: 300px;  padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px;"> 
+                 <p style="font-size: 13px; margin-top: 10px; margin-bottom: 10px;">URL de l'evenement</p>
+                <input type="text" placeholder="Ex:https://google-meet.com/gre-ses" style="width: 300px;  padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px; margin-top: 10px;"> 
+                 <h5>Dresse Physique</h5>
+                 <p style="font-size: 13px; margin-top: 10px; margin-bottom: 10px;">Lieu physique de l'evenement</p>
+                <input type="text" placeholder="Ex:Hotel Mont FEBE, Face..." style="width: 300px;  padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px;"> 
+                
+                <div style="display:flex; flex-direction:row; gap:20px;">
+                    <button onclick="nav('screen-evenement')" style="background-color: white; color:#367ccc; width:150px; height: 40px;border-radius:15px; border:1px solid #367ccc; margin-top: 15px;"><i class="fa-solid fa-arrow-left" style="color: #367ccc;"></i>Precedent</button>
+                    <button onclick="nav('screen-events')" style="background-color: #367ccc; color:white; width:150px; height: 40px;border-radius:15px; border:none; margin-top: 15px;">Confirme</button>
+          
+                </div>
+        </div>
     </div>
 
 </div>
