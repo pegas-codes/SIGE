@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGE-UC - Prototype Exposant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #0c4a6e;
+            --secondary: #2563eb;
+            --danger: #ef4444;
+            --bg-light: #f4f7fc;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --bg-white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        
+        body {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+         
+        }
+
+        .phone-container {
+            width: 350px;
+            height: 700px;
+            background-color: #ffffff;
+            border-radius: 36px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid #ffffff;
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-white);
+            overflow-y: auto;
+            scrollbar-width: none; 
+        }
+        .screen.active { display: flex; }
+
+        /* Headers */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .back-btn {
+            background: none; border: none; font-size: 16px; color: var(--text-dark); cursor: pointer;
+        }
+        .header-title { font-weight: 700; font-size: 15px; color: var(--text-dark); }
+
+        /* Dashboard Items */
+        .menu-list { background-color: #f4f7fc;  border-radius: 20px 20px 0 0; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+        .menu-item {
+             padding: 14px 16px;
+            display: flex; align-items: center; cursor: pointer;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.3);
+        }
+        .icon-wrapper {
+            width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center;
+            align-items: center; color: #ffffff; font-size: 16px; margin-right: 14px; flex-shrink: 0;
+        }
+        .menu-text { flex: 1; }
+        .menu-text h3 { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+        .menu-text p { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+        /* Leads Screen */
+        .lead-item {
+            background:  #f4f7fc;; padding: 12px 15px; display: flex; align-items: center; gap: 12px; margin:14px; margin-bottom: 8px; border-radius: 12px;height: 80px;
+            
+        }
+        .time1{margin-left: 40px; margin-bottom:40px; font-weight:400; font-size:10px; color:var(--muted);}
+        .lead-ite {display:flex; gap:12px;}
+        .avatar { width: 40px; height: 40px; border-radius: 50%; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--secondary); }
+        .lead-info h4 { font-size: 13px; color: var(--text-dark); }
+        .lead-info p { font-size: 11px; color: var(--text-muted); }
+
+        /* Messages Screen */
+        .search1{display:flex; }
+        .search { display:flex; align-items:center; background:#f1f1f1; margin:0 16px 16px; padding:10px; border-radius:10px; gap:8px; font-size:12px; }
+        .search input { border:none; background:transparent; outline:none; flex:1; }
+        .filter { background:#f1f1f1; border:1px solid var(--bdr); padding:8px 8px; margin-bottom: 16px; border-radius:10px; color:var(--muted); }
+        .tabs { display:flex; gap:20px; padding:0 16px 12px; border-bottom:1px solid #f1f5f9; font-size:12px; font-weight:600; color:var(--muted); }
+        .tabs .active { color:var(--blue); }
+        .badge { background:var(--blue); color:#fff; font-size:9px; padding:1px 6px; border-radius:10px; }
+        .list { padding:16px; display:flex; flex-direction:column; gap:16px; }
+        .item { display:flex; gap:12px; align-items:center; }
+        .avatar { width:50px; height:50px; border-radius:50%;  }
+        .info { flex:1; }
+        .top { display:flex; justify-content:space-between; font-size:12px; font-weight:700; margin-bottom:2px; }
+        .time { font-weight:400; font-size:10px; color:var(--muted); }
+        .sub { font-size:11px; color:var(--muted); }
+        .nav { display:flex; border-top:1px solid #f1f5f9; padding:10px 0; justify-content:space-around; color:var(--muted); font-size:10px; margin-top:auto; }
+        .nav .active { color:var(--blue); }
+
+        /* Stats Screen */
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 20px; }
+        .stat-card {  padding: 16px; border-radius: 16px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .stat-card h2 { font-size: 20px; color: var(--secondary); margin-bottom: 4px; }
+        .stat-card p { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+        .chart-box { background: #fff; margin: 0 20px 20px; border-radius: 16px; padding: 16px; height: 150px; display: flex; align-items: flex-end; gap: 8px; justify-content: center;}
+        .bar { width: 30px; background: var(--secondary); border-radius: 4px 4px 0 0; }
+
+        /* Events Screen */
+        
+        .event-img { width: 100%; height: 120px; background: #cbd5e1; object-fit: cover; }
+        .event-details { padding: 16px; z-index: 1;}
+        .event-details h3 { font-size: 14px; margin-bottom: 4px; }
+        .event-details p { font-size: 11px; color: var(--text-muted); margin-bottom: 12px; }
+        .btn-blue { background: var(--secondary); color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; width: 100%; cursor: pointer; }
+        .cards{display:flex; flex-direction: row; gap: 10px;}
+        .t-card{ padding: 16px; height: 150px; width: 100px; background-color: #f4f7fc;; align-items: center; border-radius: 16px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .events{display: flex; flex-direction: column; row-gap: 10px;}
+        .v-events{display: flex; flex-direction: row; font-size:13px; gap:15px;background-color: #f4f7fc; height: 80px; border-radius:10px; }
+
+        /* Contenus du stand Screen */
+
+        .pdf{display: flex; flex-direction:row; column-gap: 10px; background-color: #f4f7fc;justify-content: center; align-items: center; width: 300px; height:80px; border-radius: 16px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); margin-left: 15px;}
+    </style>
+</head>
+<body>
+
+<div class="phone-container">
+
+    <div id="screen-dashboard" class="screen active">
+        <div class="header">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="/src/assets/images/Ellipse 15.png" class="avatar" style="background-color: white;" >
+                <div>
+                    <h2 style="font-size: 14px;">Universite xxxx</h2>
+                    <p style="font-size: 10px; color: var(--text-muted);">Etablissement d'enseignement<br>superieur</p>
+                </div>
+            </div>
+            <i class="fa-regular fa-bell" style="color: var(--text-muted);"></i>
+        </div>
+
+        <div class="menu-list">
+            <h1 style="font-size: 18px; color: var(--text-dark); margin-bottom: 8px;">Fonctionnalités</h1>
+
+            <div class="menu-item" onclick="nav('screen-training')">
+                <div class="icon-wrapper" style="background:#0c4a6e;"><i class="fa-solid fa-graduation-cap""></i></div>
+                <div class="menu-text"><h3>My training</h3><p>Manage your training program</p></div>
+                <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
+            </div>
+            
+            <div class="menu-item" onclick="nav('screen-leads')">
+                <div class="icon-wrapper" style="background: #9d52e4;"><i class="fa-solid fa-user-group"></i></div>
+                <div class="menu-text"><h3>Leads & Demandes</h3><p>Voir et suivre vos contacts</p></div>
+                <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
+            </div>
+
+            <div class="menu-item" onclick="nav('screen-messages')">
+                <div class="icon-wrapper" style="background:   #dc2626;"><i class="fa-solid fa-comment-dots"></i></div>
+                <div class="menu-text"><h3>Messages</h3><p>Responding to students</p></div>
+                <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
+            </div>
+
+            <div class="menu-item" onclick="nav('screen-events')">
+                <div class="icon-wrapper" style="background: #22c55e;"><i class="fa-solid fa-calendar-days"></i></div>
+                <div class="menu-text"><h3>Evènements & Salons</h3><p>Gérer vos sessions</p></div>
+                <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
+            </div>
+            
+            <div class="menu-item" onclick="nav('screen-stats')">
+                <div class="icon-wrapper" style="background: #e0c83b;"><i class="fa-solid fa-chart-bar"></i></div>
+                <div class="menu-text"><h3>Statistiques</h3><p>Analyser vos performances</p></div>
+                <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
+            </div>
+
+            <div class="menu-item" onclick="nav('screen-contenus')">
+                <div class="icon-wrapper" style="background: #10b981;"><i class="fa-solid fa-file-image"></i></div>
+                <div class="menu-text"><h3>Contenus du stand</h3><p>Brochure, vidéos, documents</p></div>
+                <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
+            </div>
+
+            <div class="menu-item" onclick="nav('screen-settings')">
+                <div class="icon-wrapper" style="background: #dc2626;"><i class="fa-solid fa-gear"></i></div>
+                <div class="menu-text"><h3>Parametres</h3><p>Gerer votre profile</p></div>
+                <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-leads" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="nav('screen-dashboard')"><i class="fa-solid fa-arrow-left"></i></button>
+            <span class="header-title">Leads & Demandes</span>
+            <i class="fa-solid fa-magnifying-glass" style="color: var(--text-muted);"></i>
+        </div>
+        <div style="display: flex; gap:28px; padding: 0px 32px">
+            <p style="font-size: 12px; font-weight: bold;">Tous</p>
+            <p style=" font-size: 12px;">Nouveaux</p>
+            <p style=" font-size: 12px;">En contact</p>
+            <p style=" font-size: 12px;">Qualifie</p>
+        </div>
+        <div style="padding: 5px 15px; display: flex;  gap:15px; ">
+            <span style="background: var(--secondary); color: white; padding: 8px 23px; border-radius: 20px; font-size: 14px;">167</span>
+            <span style="background: #e2e8f0; color: var(--text-dark); padding: 8px 23px; border-radius: 20px; font-size: 14px;">48</span>
+            <span style="background: #e2e8f0; color: var(--text-dark); padding: 8px 23px; border-radius: 20px; font-size: 14px;">48</span>
+            <span style="background: #e2e8f0; color: var(--text-dark); padding: 8px 23px; border-radius: 20px; font-size: 14px;">67</span>
+                  
+        </div>
+        <div class="search1">
+        <div class="search"><i class="fa-solid fa-magnifying-glass"></i><input placeholder="Rechercher un lead..."></div>
+            <div class="filter"><i class="fa-solid fa-sliders"></i> Filtre</div>
+        </div>
+       
+        <div class="lead-item">
+            <div class="lead-ite">
+                <img src="/src/assets/images/Frame 93.png" class="avatar">
+                <div class="lead-info"><h4>Atangana K.</h4><p>Licence informatique<br> Douala, Cameroon</p>
+                <span style="background: #78d69a; color: #16a34a; padding: 2px 10px; border-radius: 20px; font-size: 10px;">Nouveau</span></div>
+            </div>
+            <div class="time1">il y'a 10min</div>
+        </div>
+         <div class="lead-item">
+            <div class="lead-ite">
+                <img src="/src/assets/images/Frame 96.png" class="avatar">
+                <div class="lead-info"><h4>Atangana K.</h4><p>Licence informatique<br> Douala, Cameroon</p>
+                <span style="background: #7db1db; color: #3c80b8; padding: 2px 10px; border-radius: 20px; font-size: 10px;">Nouveau</span></div>
+            </div>
+            <div class="time1">il y'a 10min</div>
+        </div>
+         <div class="lead-item">
+            <div class="lead-ite">
+                <img src="/src/assets/images/Frame 98.png" class="avatar">
+                <div class="lead-info"><h4>Atangana K.</h4><p>Licence informatique<br> Douala, Cameroon</p>
+                <span style="background: #d6bd78; color: #c2a148; padding: 2px 10px; border-radius: 20px; font-size: 10px;">Nouveau</span></div>
+            </div>
+            <div class="time1">il y'a 10min</div>
+        </div>
+         <div class="lead-item">
+            <div class="lead-ite">
+                <img src="/src/assets/images/Frame 100.png" class="avatar">
+                <div class="lead-info"><h4>Atangana K.</h4><p>Licence informatique<br> Douala, Cameroon</p>
+                <span style="background:  #78d69a; color: #16a34a; padding: 2px 10px; border-radius: 20px; font-size: 10px;">Nouveau</span></div>
+            </div>
+            <div class="time1">il y'a 10min</div>
+        </div>
+         <div class="lead-item">
+            <div class="lead-ite">
+                <img src="/src/assets/images/Frame 93.png" class="avatar">
+                <div class="lead-info"><h4>Atangana K.</h4><p>Licence informatique<br> Douala, Cameroon</p>
+                <span style="background: #7db1db; color: #3c80b8; padding: 2px 10px; border-radius: 20px; font-size: 10px;">Nouveau</span></div>
+            </div>
+            <div class="time1">il y'a 10min</div>
+        </div>
+      
+    </div>
+
+    <div id="screen-stats" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="nav('screen-dashboard')"><i class="fa-solid fa-arrow-left"></i></button>
+            <span class="header-title">Statistiques</span>
+            <i class="fa-solid fa-download" style="color: var(--text-muted);"></i>
+        </div>
+        <div style="padding: 2px 21px;  display: flex;  gap:10px; ">
+            <span style="background: #e2e8f0; color: var(--text-dark); padding: 4px 8px; border-radius: 20px; font-size: 11px;">7 Jour</span>
+            <span style="background:var(--secondary); color: white; padding: 4px 8px; border-radius: 20px; font-size: 11px;">30 Jours</span>
+            <span style="background: #e2e8f0; color: var(--text-dark); padding: 4px 8px; border-radius: 20px; font-size: 11px;">12 mois</span>
+            <span style="background: #e2e8f0; color: var(--text-dark); padding: 4px 20px; border-radius: 20px; font-size: 11px;">personnalise</span>
+        </div><br>
+        <h3 style="padding: 0px 21px; font-size:13px">Aperçu général</h3>
+        <div class="stat-grid">
+            <div class="stat-card" style="background-color:#f4f7fc;"><h2>12,540</h2><p>Visites totales</p></div>
+            <div class="stat-card" style="background-color:#f5dede;" id="2"><h2>842</h2><p>Leads générés</p></div>
+            <div class="stat-card" style="background-color:#ebebeb;" id="3"><h2>12,540</h2><p>Visites totales</p></div>
+            <div class="stat-card" style="background-color:#fff5b9;" id="4"><h2>842</h2><p>Leads générés</p></div>
+        </div>
+        <h3 style="font-size: 13px; margin: 0 20px 10px; color: var(--text-dark);">Évolution des visites</h3>
+        <div class="chart-box">
+            <div class="bar" style="height: 40%;"></div>
+            <div class="bar" style="height: 60%;"></div>
+            <div class="bar" style="height: 30%;"></div>
+            <div class="bar" style="height: 80%;"></div>
+            <div class="bar" style="height: 100%;"></div>
+            <div class="bar" style="height: 70%;"></div>
+        </div>
+    </div>
+
+    <div id="screen-messages" class="screen">
+         <div class="header">
+            <button class="back-btn" onclick="nav('screen-dashboard')"><i class="fa-solid fa-arrow-left"></i></button>
+            <span class="header-title">Messages</span>
+            <i class="fa-regular fa-pen-to-square" style="color: var(--text-muted);"></i>
+        </div> 
+       <div class="search1">
+         <div class="search"><i class="fa-solid fa-magnifying-glass"></i><input placeholder="Rechercher un lead..."></div>
+            <div class="filter"><i class="fa-solid fa-sliders"></i> Filtre</div>
+        </div>
+        
+        <div class="tabs"><span class="active">Tous</span><span>Non lus <span class="badge">10</span></span><span>Étudiants</span></div>
+        <div class="list">
+            <div class="item"><img src="/src/assets/images/Ell.png" class="avatar"><div class="info">
+                <div class="top">Serena TOUNGUE <span class="time">10:32</span></div>
+                <div class="sub">Un message est un ensemble de signes...</div>
+            </div></div>
+            <div class="item"><img src="/src/assets/images/Ell.png" class="avatar"><div class="info">
+                <div class="top">Serena TOUNGUE <span class="time">10:32</span></div>
+                <div class="sub">Un message est un ensemble de signes...</div>
+            </div></div>
+            <div class="item"><img src="/src/assets/images/Ell.png" class="avatar"><div class="info">
+                <div class="top">Serena TOUNGUE <span class="time">10:32</span></div>
+                <div class="sub">Un message est un ensemble de signes...</div>
+            </div></div>
+            <div class="item"><img src="/src/assets/images/Ell.png" class="avatar"><div class="info">
+                <div class="top">Serena TOUNGUE <span class="time">10:32</span></div>
+                <div class="sub">Un message est un ensemble de signes...</div>
+            </div></div>
+            <div class="item"><img src="/src/assets/images/Ell.png" class="avatar"><div class="info">
+                <div class="top">Serena TOUNGUE <span class="time">10:32</span></div>
+                <div class="sub">Un message est un ensemble de signes...</div>
+            </div></div>
+            
+            
+        </div>
+        <div class="nav">
+            <div class="active"><i class="fa-regular fa-comment-dots" style="font-size:16px;display:block;margin-bottom:4px;"></i>Messages</div>
+            <div><i class="fa-regular fa-user" style="font-size:16px;display:block;margin-bottom:4px;"></i>Profil</div>
+            <div><i class="fa-solid fa-chart-line" style="font-size:16px;display:block;margin-bottom:4px;"></i>Leads</div>
+        </div>        
+    </div>
+
+    <div id="screen-events" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="nav('screen-dashboard')"><i class="fa-solid fa-arrow-left"></i></button>
+            <span class="header-title">Évènements & Salons</span>
+            <i class="fa-solid fa-plus" style="color: var(--secondary);"></i>
+        </div>
+        <div style="padding: 20px;">
+            <div class="event-card">
+                <div class="event-img" style="background: linear-gradient(45deg, #0f172a, #1e40af);"></div>
+                <div class="event-details">
+                    <h3>SIGE-UC 1ère Édition</h3>
+                    <p><i class="fa-regular fa-calendar"></i> 21 - 23 Juillet 2026<br><i class="fa-solid fa-location-dot"></i> Yaoundé, Hôtel Djeuga</p>
+                </div>
+            </div>
+            <div class="cards">
+                <div class="t-card">
+                    <br><img src="/src/assets/images/fluent_people-16-filled.png">
+                    <h3>2896</h3>
+                    <p style="color:#676768">Viviteurs<br>inscrits</p>
+                </div>
+                <div class="t-card">
+                    <br><img src="/src/assets/images/lsicon_view-filled.png">
+                    <h3>2896</h3>
+                    <p style="color:#676768">Viviteurs<br>inscrits</p>
+                </div>
+                <div class="t-card">
+                   <br><img src="/src/assets/images/uil_calender.png">
+                    <h3>2896</h3>
+                    <p style="color:#676768">Viviteurs<br>inscrits</p>
+                </div>
+            </div>
+            <br><h5 style="color:#676768">Vos evenements a venir</h5><br>
+            <div class="events">
+                <div class="v-events">
+                   <img src="/src/assets/images/Rectangle 41.png" style="height: 72px; padding-top: 9px; padding-left:9px;">
+                    <div style="color:#676768;">
+                        <br><p>Journees Portes Ouvertes</p>
+                        <p><img src="/src/assets/images/uil_calender (1).png" style="height: 10px;"> 21-23 Juin 2026</p>
+                        <p><img src="/src/assets/images/basil_location-outline.png" style="height: 10px;"> Hotel Djeuga Palace</p>
+                        </div>
+                </div>
+                <div class="v-events">
+                   <img src="/src/assets/images/Rectangle 41.png" style="height: 72px; padding-top: 9px; padding-left:9px;">
+                    <div style="color:#676768;">
+                        <br><p>Journees Portes Ouvertes</p>
+                        <p><img src="/src/assets/images/uil_calender (1).png" style="height: 10px;"> 21-23 Juin 2026</p>
+                        <p><img src="/src/assets/images/basil_location-outline.png" style="height: 10px;"> Hotel Djeuga Palace</p>
+                        </div>
+                </div>
+                <div class="v-events">
+                   <img src="/src/assets/images/Rectangle 41.png" style="height: 72px; padding-top: 9px; padding-left:9px; ">
+                    <div style="color:#676768; ">
+                        <br><p>Journees Portes Ouvertes</p>
+                        <p><img src="/src/assets/images/uil_calender (1).png" style="height: 10px;"> 21-23 Juin 2026</p>
+                        <p><img src="/src/assets/images/basil_location-outline.png" style="height: 10px;"> Hotel Djeuga Palace</p>
+                        </div>
+                </div>
+            </div>
+            <button onclick="nav('screen-evenement')" style="background-color: #5a94d6; color:white; width:300px; height: 40px;border-radius:20px; border:none; margin-top: 15px;">+ Creer un evenement</button>
+        </div>
+    </div>
+
+    <div id="screen-contenus" class="screen">
+         <div class="header">
+            <button class="back-btn" onclick="nav('screen-dashboard')"><i class="fa-solid fa-arrow-left"></i></button>
+            <span class="header-title">Évènements & Salons</span>
+            <i class="fa-solid fa-plus" style="color: var(--secondary);"></i>
+        </div>
+        <div style="margin:9px">
+        
+         <div style="padding: 2px 21px;  display: flex;  gap:10px; ">
+            <span style=" color: var(--secondary); padding: 4px 8px;  font-size: 11px;">Tout</span>
+            <span style="  color: var(--text-dark); padding: 4px 8px;  font-size: 11px;">Dovuments</span>
+            <span style="  color: var(--text-dark); padding: 4px 8px;  20px; font-size: 11px;">Videos</span>
+            <span style=" color: var(--text-dark); padding: 4px 20px;  20px; font-size: 11px;">Images</span>
+        </div><br>
+        <div class="pdf">
+            <img src="/src/assets/images/material-icon-theme_pdf.png" style="height:40px">
+            <div style="font-size: 12px;" align="left"><p >Optimiser Votre stand<br><span style="color:#676768">     Ajouter du contenus pour attire<br> d'autres etudiants </span></p></div>
+            <i class="fa-solid fa-arrow-right"></i>
+        </div>
+        <div style="display:flex; justify-content: space-around; font-size: 13px; margin-top:20px; margin-bottom:20px;">
+            <p style="">Documents</p>
+            <p style="color: var(--secondary);">Voir tout</p>
+        </div>
+        <div style="display: flex; flex-direction:row; gap:10px; margin-left: 18px;">
+            <div style="max-width:150px">
+                <img src="/src/assets/images/Frame 75.png" style="height:150px;">
+                <h6>Guide de Formation</h><br>
+                <p6 style="color:#676768">PDF -1.4Mb</p>
+            </div>
+            <div style="max-width:150px">
+                <img src="/src/assets/images/Frame 75.png" style="height:150px;">
+                <h6>Guide de Formation</h><br>
+                <p6 style="color:#676768">PDF -1.4Mb</p>
+            </div>
+            <div style="max-width:150px">
+                <img src="/src/assets/images/Frame 75.png" style="height:150px;">
+                <h6>Guide de Formation</h><br>
+                <p6 style="color:#676768">PDF -1.4Mb</p>
+            </div>
+        </div>
+         <div style="display:flex; justify-content: space-around; font-size: 13px; margin-top:20px; margin-bottom:20px;">
+            <p style="">Videos</p>
+            <p style="color: var(--secondary);">Voir tout</p>
+        </div> 
+        
+        <div style="display: flex; flex-direction:row; gap:10px; margin-left: 18px;">
+            <div style="max-width:150px">
+                <img src="/src/assets/images/" style="height:150px;">
+                <h6>Presentation de <br>l'universite</h><br>
+                
+            </div>
+        </div>
+        <div style="display:flex; justify-content: space-around; font-size: 13px; margin-top:20px; margin-bottom:20px;">
+            <p style="">Images</p>
+            <p style="color: var(--secondary);">Voir tout</p>
+        </div>
+
+         <div style="display: flex; flex-direction:row; gap:10px; margin-left: 18px;">
+            <div style="max-width:150px">
+                <img src="/src/assets/images/Frame 77.png" style="width: 130px;">
+                  <h4>Stands 1</h><br>
+                
+            </div>
+            <div style="max-width:150px">
+                <img src="/src/assets/images/Frame 77.png" style="width: 130px;">
+                <h4>Stands 1</h><br>
+                
+            </div>
+            <div style="max-width:150px">
+                <img src="/src/assets/images/Frame 77.png" style="width: 130px;">
+                <h4>Stands 1</h><br>
+                
+            </div>
+        </div>
+       </div>
+    </div>
+
+    <div id="screen-evenement" class="screen">
+          <div class="header">
+            <button class="back-btn" onclick="nav('screen-events')"><i class="fa-solid fa-arrow-left"></i></button>
+            <span class="header-title">Creer un evenement</span>
+            <i class="fa-solid fa-plus" style="color: var(--secondary);"></i>
+        </div>
+         <div style="display:flex; justify-content: space-around; font-size: 13px; margin-top:20px; margin-bottom:20px;">
+            <p style="color: var(--secondary); background-color:  #f4f7fc; border-radius: 20px; padding: 10px">Informations</p>
+            <p style="color: ; padding: 10px">Contenus</p>
+        </div>
+        <div style="margin-left: 20px; margin-right: 30px;">
+        <p3>Titre de l'evenement</p3>
+        <input type="text" placeholder="Ex: Salon physique de la recherche..." style="width: 300px; height: 60px; border-radius: 20px; border: 1px solid #e2e8f0; padding-left: 10px; vertical-align: top;">
+        <p3>Type d'evenement</p3>
+        <div style="display:flex; flex-direction: row; gap:20px; justify-content: space-between; margin-top: 10px; width: 100px;">
+            <button style="background-color: #f4f7fc; color:#5a94d6; padding: 6px 20px 6px 20px; border: 1px solid#9a9a9b; ">Salon</button>
+            <button style="background-color: white; color:#999999; padding: 6px 8px 6px 8px; border: 1px solid#9a9a9b">Webinaire</button>
+            <button style="background-color: white; color:#999999; padding: 6px; border: 1px solid#9a9a9b">Conference</button>
+        </div>
+        <div style="margin-top: 15px; display:flex; flex-direction: row; gap:10px">
+            <button style="background-color: white; color:#999999; padding: 6px 15px 6px 15px; border: 1px solid#9a9a9b">Portes ouvertes</button>
+            <button style="background-color: white; color:#999999; padding: 6px 30px 6px 30px; border: 1px solid#9a9a9b">Autres</button>
+        </div>
+        <p3>Description</p3>
+         <input type="text" placeholder="Il s'agira de..." style="width: 300px; height: 150px; border-radius: 20px; border: 1px solid #e2e8f0; padding-left: 10px; ">
+         <p3>Image de couverture</p3>
+            <div style="width: 300px; height: 100px; background-color: #f4f7fc; border-radius: 20px; border: 1px solid #e2e8f0; align-items: center; justify-content: center; display: flex; flex-direction: column;">
+                <img src="/src/assets/images/Frame 204.png" style="width: 30px;">
+                <p style="color:#5a94d6;">Ajouter une image</p>
+                <p style="color:#676768; font-size: 12px;">PDF, JPEG, WEBP(max 5Mo)</p>
+
+            </div>
+        
+         <p3>Établissement organisateur</p3>
+             <button onclick="nav('screen-evenement2')" style="background-color: #5a94d6; color:white; width:300px; height: 40px;border-radius:20px; border:none; margin-top: 15px;">Suivant<i class="fa-solid fa-arrow-right"></i></button>
+      
+        </div>
+    </div>
+
+    <div id="screen-evenement2" class="screen">
+          <div class="header">
+            <button class="back-btn" onclick="nav('screen-events')"><i class="fa-solid fa-arrow-left"></i></button>
+            <span class="header-title">Creer un evenement</span>
+            <i class="fa-solid fa-plus" style="color: var(--secondary);"></i>
+        </div>
+         <div style="display:flex; justify-content: space-around; font-size: 13px; margin-top:20px; margin-bottom:20px;">
+           <p style=" padding: 10px">Information</p>
+            <p style="color: var(--secondary); background-color:  #f4f7fc; border-radius: 20px; padding: 10px">Contenus</p>
+        </div>
+        <div style="margin-left: 20px; margin-right: 30px;">
+            <h5>Date et Heure</h5>
+            <div style="display:flex; justify-content: space-between; font-size: 13px; margin-top:10px; margin-bottom:10px; margin-left: 0px;">
+           <p>Date de debut</p>
+            <p>Heure de debut</p>
+        </div>
+        <div style="display:flex; justify-content: space-between;">
+            <input type="date" placeholder=" "style="width: 130px; height: 30px;  border: 1px solid #e2e8f0; padding-left: 10px;" />
+            <input type="time" style="width: 130px; height: 30px;  border: 1px solid #e2e8f0; padding-left: 10px;">
+        </div>
+            <div style="display:flex; justify-content: space-between; font-size: 13px; margin-top:10px; margin-bottom:10px; margin-left: 0px;">
+           <p>Date de fin</p>
+            <p>Heure de fin</p>
+        </div>
+        <div style="display:flex; justify-content: space-between; margin-top: 10px;">
+            <input type="date" placeholder=" "style="width: 130px; height: 30px;  border: 1px solid #e2e8f0; padding-left: 10px;" />
+            <input type="time" style="width: 130px; height: 30px;  border: 1px solid #e2e8f0; padding-left: 10px;">
+        </div>
+        
+          <h5>A Propose de l'evenement</h5>  
+          <p style="font-size: 13px; margin-top: 10px; margin-bottom: 10px;">Public cible</p>
+          <input list="browsers" name="browser" placeholder="Selectionner votre public cible." style="width: 300px;  padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px;"> 
+          <datalist id="browsers">
+                <option value="Edge"></option>
+                <option value="Firefox"></option>
+                <option value="Chrome"></option>
+          </datalist> 
+           <p style="font-size: 13px; margin-top: 10px; margin-bottom: 10px;">Mots cles</p>
+                <input type="text" placeholder="Ex:Orientation-licence-Bourse" style="width: 300px;  padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px;"> 
+                 <p style="font-size: 13px; margin-top: 10px; margin-bottom: 10px;">URL de l'evenement</p>
+                <input type="text" placeholder="Ex:https://google-meet.com/gre-ses" style="width: 300px;  padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px; margin-top: 10px;"> 
+                 <h5>Dresse Physique</h5>
+                 <p style="font-size: 13px; margin-top: 10px; margin-bottom: 10px;">Lieu physique de l'evenement</p>
+                <input type="text" placeholder="Ex:Hotel Mont FEBE, Face..." style="width: 300px;  padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px;"> 
+                
+                <div style="display:flex; flex-direction:row; gap:20px;">
+                    <button onclick="nav('screen-evenement')" style="background-color: white; color:#367ccc; width:150px; height: 40px;border-radius:15px; border:1px solid #367ccc; margin-top: 15px;"><i class="fa-solid fa-arrow-left" style="color: #367ccc;"></i>Precedent</button>
+                    <button onclick="nav('screen-events')" style="background-color: #367ccc; color:white; width:150px; height: 40px;border-radius:15px; border:none; margin-top: 15px;">Confirme</button>
+          
+                </div>
+        </div>
+    </div>
+    
+
+</div>
+
+<script>
+    // Simple Router Function
+    function nav(targetId) {
+        // Hide all screens
+        const screens = document.querySelectorAll('.screen');
+        screens.forEach(s => s.classList.remove('active'));
+        
+        // Show target screen
+        document.getElementById(targetId).classList.add('active');
+    }
+</script>
+
+</body>
+</html>

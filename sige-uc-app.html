@@ -160,6 +160,22 @@
         .bottom-nav { position: absolute; bottom: 0; left: 0; width: 100%; background: #0f172a; display: flex; justify-content: space-around; padding: 14px 0; z-index: 10; }
         .nav-icon { color: #64748b; font-size: 20px; cursor: pointer; display: flex; flex-direction: column; align-items: center; }
         .nav-icon.active { color: #fff; }
+
+         /* Dashboard Items */
+        .menu-list { background-color: #f4f7fc;  border-radius: 20px 20px 0 0; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+        .menu-item {
+             padding: 14px 16px;
+            display: flex; align-items: center; cursor: pointer;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.3);
+        }
+        .icon-wrapper {
+            width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center;
+            align-items: center; color: #ffffff; font-size: 16px; margin-right: 14px; flex-shrink: 0;
+        }
+        .menu-text { flex: 1; }
+        .menu-text h3 { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+        .menu-text p { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
     </style>
 </head>
 <body>
@@ -390,8 +406,8 @@
         <img src="/src/assets/images/slide4.png" style="height: 120px; width: 120px;" alt="SIGE-UC Graphic"> 
         <h1><span>Bienvenue Stranger Boy<br> sur SIGE-UC app</span></h1>
     </div>
-
-    <div id="exposantSplash" class="flex-center hidden" onclick="go('exposantSplash', 'exposantDashboard', 'nav-home')">
+ 
+    <div id="exposantSplash" class="flex-center hidden" onclick="go('exposantSplash', 'exposantDashboard', )">
         <img src="/src/assets/images/Slide4.png" style="height: 120px; width: 120px;" alt="SIGE-UC Graphic"> 
         <h1><span>Bienvenue <br> sur SIGE-UC app</span></h1>
     </div>
